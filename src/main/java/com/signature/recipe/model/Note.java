@@ -15,6 +15,13 @@ public class Note {
     @OneToOne
     private Recipe recipe;
 
+    public Note() { }
+
+    public Note(String description, Recipe recipe) {
+        this.description = description;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }

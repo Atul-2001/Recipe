@@ -1,6 +1,7 @@
 package com.signature.recipe.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -36,6 +37,11 @@ public class Recipe {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Note note;
+
+    public Recipe() {
+        this.categories = new HashSet<>();
+        this.ingredients = new HashSet<>();
+    }
 
     public Long getId() {
         return id;

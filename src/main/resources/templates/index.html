@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe</title>
+</head>
+<body>
+    <!--/*@thymesVar id="recipe" type="com.signature.recipe.model.Recipe"*/-->
+    <!--/*@thymesVar id="category" type="com.signature.recipe.model.Category"*/-->
+    <!--/*@thymesVar id="ingredient" type="com.signature.recipe.model.Ingredient"*/-->
+    <!--/*@thymesVar id="unit" type="com.signature.recipe.model.UnitOfMeasure"*/-->
+    <!--/*@thymesVar id="note" type="com.signature.recipe.model.Note"*/-->
+
+    <h2 style="text-align: center">My Recipe</h2>
+
+    <dl th:each="recipe : ${recipes}">
+        <dt>
+            <h3 th:text="${recipe.id} + ' - ' + ${recipe.description}"></h3>
+        </dt>
+        <dd>
+            <ul>
+                <li>
+                    <h4>Preparation Time : </h4> <p th:text="${recipe.prepTime} + 'mins'"></p>
+                </li>
+                <li>
+                    <h4>Cooking Time     : </h4> <p th:text="${recipe.cookTime} + 'mins'"></p>
+                </li>
+                <li>
+                    <h4>Servings         : </h4> <p th:text="${recipe.servings}"></p>
+                </li>
+                <li>
+                    <h4>Source           : </h4> <p th:text="${recipe.source}"></p>
+                </li>
+                <li>
+                    <h4>URL              : </h4> <a th:href="${recipe.url}" th:text="${recipe.url}"></a>
+                </li>
+                <li>
+                    <h4>Rating           : </h4> <p th:text="${recipe.rating}"></p>
+                </li>
+                <li>
+                    <h4>Difficulty       : </h4> <p th:text="${recipe.difficulty}"></p>
+                </li>
+                <li>
+                    <h4>Categories       : </h4>
+                    <ul>
+                        <li th:each="category : ${recipe.categories}">
+                            <p th:text="${category.description}"></p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Ingredients      : </h4>
+                    <ul>
+                        <li th:each="ingredient : ${recipe.ingredients}">
+                            <p th:text="${ingredient.amount} + ' ' + ${ingredient.unit.description} + ' ' + ${ingredient.description}"></p>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h4>Directions       : </h4> <p th:text="${recipe.directions}"></p>
+                </li>
+                <li>
+                    <h4>Note             : </h4> <p th:text="${recipe.note.description}"></p>
+                </li>
+            </ul>
+        </dd>
+    </dl>
+</body>
+</html>
