@@ -17,6 +17,10 @@ public class Note {
 
     public Note() { }
 
+    public Note(String description) {
+        this.description = description;
+    }
+
     public Note(String description, Recipe recipe) {
         this.description = description;
         this.recipe = recipe;

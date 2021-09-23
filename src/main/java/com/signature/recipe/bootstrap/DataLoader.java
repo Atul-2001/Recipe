@@ -139,18 +139,18 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         recipe.getCategories().add(americanDish);
         recipe.setDirections("Firstly Cut the avocado and then mash the avocado flesh after that add remaining ingredients to taste. Serve immediately");
 
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), ripe, "avocados", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0 / 4.0), teaspoon, "salt, plus more to taste", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), tablespoon, "fresh lime or lemon juice", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(4), tablespoon, "minced red onion or thinly sliced green onion", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), none, "serrano (or jalapeño) chilis, stems and seeds removed, minced", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), tablespoon, "cilantro (leaves and tender stems), finely chopped", recipe));
-        recipe.getIngredients().add(new Ingredient(null, none, "Pinch freshly ground black pepper", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0/2.0), ripe, "tomato, chopped (optional)", recipe));
-        recipe.getIngredients().add(new Ingredient(null, none, "Red radish or jicama slices for garnish (optional)", recipe));
-        recipe.getIngredients().add(new Ingredient(null, none, "Tortilla chips, to serve", recipe));
+        recipe.addIngredients(new Ingredient(new BigDecimal(2), ripe, "avocados"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0 / 4.0), teaspoon, "salt, plus more to taste"))
+                .addIngredients(new Ingredient(new BigDecimal(1), tablespoon, "fresh lime or lemon juice"))
+                .addIngredients(new Ingredient(new BigDecimal(4), tablespoon, "minced red onion or thinly sliced green onion"))
+                .addIngredients(new Ingredient(new BigDecimal(2), none, "serrano (or jalapeño) chilis, stems and seeds removed, minced"))
+                .addIngredients(new Ingredient(new BigDecimal(2), tablespoon, "cilantro (leaves and tender stems), finely chopped"))
+                .addIngredients(new Ingredient(null, none, "Pinch freshly ground black pepper"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/2.0), ripe, "tomato, chopped (optional)"))
+                .addIngredients(new Ingredient(null, none, "Red radish or jicama slices for garnish (optional)"))
+                .addIngredients(new Ingredient(null, none, "Tortilla chips, to serve"));
 
-        recipe.setNote(new Note("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards.", recipe));
+        recipe.setNote(new Note("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards."));
         recipes.add(recipe);
 
         recipe = new Recipe();
@@ -167,27 +167,26 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 " Make the marinade and coat the chicken >>> Grill the chicken >>> Warm the tortillas " +
                 ">>> Assemble the tacos");
 
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), tablespoon, "ancho chili powder", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), teaspoon, "dried oregano", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), teaspoon, "dried cumin", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), teaspoon, "sugar", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0/2.0), teaspoon, "salt", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), clove, "garlic, finely chopped", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), tablespoon, "finely grated orange zest", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(3), tablespoon, "fresh-squeezed orange juice", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), tablespoon, "olive oil", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(6), none, "skinless, boneless chicken thighs (1 1/4 pounds)", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(8), small, "corn tortillas", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(3), cups, "packed baby arugula (3 ounces)", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(2), medium, "ripe avocados, sliced", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(4), none, "radishes, thinly sliced", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0/2.0), pint, "cherry tomatoes, halved", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0/4.0), none, "red onion, thinly sliced", recipe));
-        recipe.getIngredients().add(new Ingredient(null, none, "Roughly chopped cilantro", recipe));
-        recipe.getIngredients().add(new Ingredient(BigDecimal.valueOf(1.0/2.0), cup, "sour cream thinned with 1/4 cup milk", recipe));
-        recipe.getIngredients().add(new Ingredient(new BigDecimal(1), none, ", cut into wedges", recipe));
+        recipe.addIngredients(new Ingredient(new BigDecimal(2), tablespoon, "ancho chili powder"))
+                .addIngredients(new Ingredient(new BigDecimal(1), teaspoon, "dried oregano"))
+                .addIngredients(new Ingredient(new BigDecimal(1), teaspoon, "dried cumin"))
+                .addIngredients(new Ingredient(new BigDecimal(1), teaspoon, "sugar"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/2.0), teaspoon, "salt"))
+                .addIngredients(new Ingredient(new BigDecimal(1), tablespoon, "finely grated orange zest"))
+                .addIngredients(new Ingredient(new BigDecimal(3), tablespoon, "fresh-squeezed orange juice"))
+                .addIngredients(new Ingredient(new BigDecimal(2), tablespoon, "olive oil"))
+                .addIngredients(new Ingredient(new BigDecimal(6), none, "skinless, boneless chicken thighs (1 1/4 pounds)"))
+                .addIngredients(new Ingredient(new BigDecimal(8), small, "corn tortillas"))
+                .addIngredients(new Ingredient(new BigDecimal(3), cups, "packed baby arugula (3 ounces)"))
+                .addIngredients(new Ingredient(new BigDecimal(2), medium, "ripe avocados, sliced"))
+                .addIngredients(new Ingredient(new BigDecimal(4), none, "radishes, thinly sliced"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/2.0), pint, "cherry tomatoes, halved"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/4.0), none, "red onion, thinly sliced"))
+                .addIngredients(new Ingredient(null, none, "Roughly chopped cilantro"))
+                .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/2.0), cup, "sour cream thinned with 1/4 cup milk"))
+                .addIngredients(new Ingredient(new BigDecimal(1), none, ", cut into wedges"));
 
-        recipe.setNote(new Note("Look for ancho chile powder with the Mexican ingredients at your grocery store, on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)", recipe));
+        recipe.setNote(new Note("Look for ancho chile powder with the Mexican ingredients at your grocery store, on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)"));
         recipes.add(recipe);
 
         return recipes;
