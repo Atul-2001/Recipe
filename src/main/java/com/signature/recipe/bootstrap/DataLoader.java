@@ -4,29 +4,29 @@ import com.signature.recipe.model.*;
 import com.signature.recipe.repository.CategoryRepository;
 import com.signature.recipe.repository.RecipeRepository;
 import com.signature.recipe.repository.UnitOfMeasureRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Log4j2
 @Component
+@AllArgsConstructor
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private final RecipeRepository recipeRepository;
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public DataLoader(RecipeRepository recipeRepository, CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.recipeRepository = recipeRepository;
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
-    }
-
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
         recipeRepository.saveAll(getRecipes());
     }
@@ -46,6 +46,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         Category americanDish = americanDishOptional.get();
         Category mexicanDish = mexicanDishOptional.get();
+
+        log.info("Fetched all the categories...");
 
         Optional<UnitOfMeasure> noneOptional = unitOfMeasureRepository.findByDescription("");
         if (noneOptional.isEmpty()) {
@@ -112,6 +114,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             throw new RuntimeException("Unit of Measure not found!");
         }
 
+        log.info("Fetched all the unit of measures...");
+
         UnitOfMeasure none = noneOptional.get();
         UnitOfMeasure small = smallOptional.get();
         UnitOfMeasure medium = mediumOptional.get();
@@ -135,8 +139,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         recipe.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         recipe.setRating(4);
         recipe.setDifficulty(Difficulty.MODERATE);
-        recipe.getCategories().add(mexicanDish);
-        recipe.getCategories().add(americanDish);
+        recipe.addCategory(mexicanDish).addCategory(americanDish);
         recipe.setDirections("Firstly Cut the avocado and then mash the avocado flesh after that add remaining ingredients to taste. Serve immediately");
 
         recipe.addIngredients(new Ingredient(new BigDecimal(2), ripe, "avocados"))
@@ -153,6 +156,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         recipe.setNote(new Note("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards."));
         recipes.add(recipe);
 
+        log.info("Added recipe >> Guacamole: A Classic Mexican Dish");
+
         recipe = new Recipe();
         recipe.setDescription("Spicy Grilled Chicken Tacos");
         recipe.setPrepTime(20);
@@ -162,7 +167,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         recipe.setUrl("https://www.simplyrecipes.com/recipes/spicy_grilled_chicken_tacos/");
         recipe.setRating(3);
         recipe.setDifficulty(Difficulty.HARD);
-        recipe.getCategories().add(americanDish);
+        recipe.addCategory(americanDish);
         recipe.setDirections("Prepare a gas or charcoal grill for medium-high, direct heat >>>" +
                 " Make the marinade and coat the chicken >>> Grill the chicken >>> Warm the tortillas " +
                 ">>> Assemble the tacos");
@@ -184,10 +189,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/4.0), none, "red onion, thinly sliced"))
                 .addIngredients(new Ingredient(null, none, "Roughly chopped cilantro"))
                 .addIngredients(new Ingredient(BigDecimal.valueOf(1.0/2.0), cup, "sour cream thinned with 1/4 cup milk"))
-                .addIngredients(new Ingredient(new BigDecimal(1), none, ", cut into wedges"));
+                .addIngredients(new Ingredient(new BigDecimal(1), none, "lime, cut into wedges"));
 
         recipe.setNote(new Note("Look for ancho chile powder with the Mexican ingredients at your grocery store, on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)"));
         recipes.add(recipe);
+
+        log.info("Added recipe >> Spicy Grilled Chicken Tacos");
 
         return recipes;
     }
