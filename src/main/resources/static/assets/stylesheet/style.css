@@ -1,0 +1,67 @@
+.card-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    /*margin-bottom: .5rem;*/
+    font-size: 16px;
+    color: inherit;
+}
+
+.card-default {
+    border-color: #ddd;
+}
+
+.card-default > .card-header {
+    color: #333;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+
+.card-primary {
+    border-color: #337ab7;
+}
+
+.card-primary > .card-header {
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+.card-success {
+    border-color: #d6e9c6;
+}
+
+.card-success > .card-header {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.card-info {
+    border-color: #bce8f1;
+}
+
+.card-info > .card-header {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.card-warning {
+    border-color: #faebcc;
+}
+
+.card-warning > .card-header {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.card-danger {
+    border-color: #ebccd1;
+}
+
+.card-danger > .card-header {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
