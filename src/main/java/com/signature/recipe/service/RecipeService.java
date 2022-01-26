@@ -25,4 +25,9 @@ public class RecipeService {
         return StreamSupport.stream(recipeRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
+
+    public Recipe getById(final Long id) {
+        log.info("Getting recipe for id : " + id);
+        return id == null ? null : recipeRepository.findById(id).orElse(null);
+    }
 }
