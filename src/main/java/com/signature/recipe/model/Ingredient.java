@@ -74,6 +74,6 @@ public class Ingredient {
 
     @JsonIgnore
     public IngredientDTO getDTO() {
-        return new IngredientDTO(id, amount, description, unit.getDTO());
+        return new IngredientDTO(id, amount, description, unit == null ? null : unit.getDTO());
     }
 }

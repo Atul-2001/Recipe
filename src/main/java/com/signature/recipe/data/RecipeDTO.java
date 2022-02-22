@@ -35,9 +35,8 @@ public class RecipeDTO {
 
   @JsonIgnore
   public Recipe getModel() {
-    return Recipe.builder()
-            .id(id).url(url).source(source).note(notes.getModel()).prepTime(prepTime).cookTime(cookTime)
-            .servings(servings).directions(directions).description(description).difficulty(difficulty)
+    return Recipe.builder().id(id).url(url).source(source).note(notes == null ? null : notes.getModel()).prepTime(prepTime)
+            .cookTime(cookTime).servings(servings).directions(directions).description(description).difficulty(difficulty)
             .categories(categories.stream().map(CategoryDTO::getModel).collect(Collectors.toSet()))
             .ingredients(ingredients.stream().map(IngredientDTO::getModel).collect(Collectors.toSet()))
             .build();

@@ -59,11 +59,13 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID")
     )
     @ToString.Exclude
-    private Set<Category> categories;
+    @Builder.Default
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     @ToString.Exclude
-    private Set<Ingredient> ingredients;
+    @Builder.Default
+    private Set<Ingredient> ingredients = new HashSet<>();
     private String directions;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -113,10 +115,10 @@ public class Recipe {
         recipeDTO.setPrepTime(prepTime);
         recipeDTO.setCookTime(cookTime);
         recipeDTO.setServings(servings);
-        recipeDTO.setNotes(note.getDTO());
         recipeDTO.setDifficulty(difficulty);
         recipeDTO.setDirections(directions);
         recipeDTO.setDescription(description);
+        recipeDTO.setNotes(note == null ? null : note.getDTO());
         recipeDTO.setCategories(categories.stream().map(Category::getDTO).collect(Collectors.toSet()));
         recipeDTO.setIngredients(ingredients.stream().map(Ingredient::getDTO).collect(Collectors.toSet()));
         return recipeDTO;
