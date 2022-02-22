@@ -1,5 +1,6 @@
 package com.signature.recipe.service;
 
+import com.signature.recipe.data.RecipeDTO;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.repository.RecipeRepository;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +19,10 @@ public class RecipeService {
     public RecipeService(RecipeRepository recipeRepository) {
         log.trace("Loading Recipe Service...");
         this.recipeRepository = recipeRepository;
+    }
+
+    public Recipe save(RecipeDTO recipeDTO) {
+        return recipeRepository.save(recipeDTO.getModel());
     }
 
     public List<Recipe> getAllRecipes() {

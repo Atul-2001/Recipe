@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
+
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+          rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/jquery-ui/1.13.0/jquery-ui.min.css}">
+
+    <link href="/static/assets/stylesheet/style.css" rel="stylesheet" th:href="@{/assets/stylesheet/style.css}">
+
+    <title>Add New Recipe</title>
+</head>
+<body>
+
+<!--/*@thymesVar id="recipe" type="com.signature.recipe.data.RecipeDTO"*/-->
+<!--/*@thymesVar id="category" type="com.signature.recipe.data.CategoryDTO"*/-->
+<!--/*@thymesVar id="ingredient" type="com.signature.recipe.data.IngredientDTO"*/-->
+<!--/*@thymesVar id="unit" type="com.signature.recipe.data.UnitOfMeasureDTO"*/-->
+<!--/*@thymesVar id="note" type="com.signature.recipe.data.NoteDTO"*/-->
+<!--/*@thymesVar id="difficulty" type="com.signature.recipe.model.Difficulty"*/-->
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <a class="back" th:href="@{'/'}">&#9204; Back</a>
+<!--            <form th:object="${recipe}" th:action="@{/recipe/}" method="post">-->
+            <form th:action="@{/recipe/}" method="post">
+                <input type="hidden" th:field="*{recipe.id}"/>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h6 class="card-title">Edit Recipe Information</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 mb-2">
+                                <label for="description">Recipe Description:</label>
+                                <input id="description" type="text" class="form-control"
+                                       th:field="*{recipe.description}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label>Categories:</label>
+                            </div>
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <div class="radio">
+                                    <input id="cat1" type="checkbox" value=""/>
+                                    <label for="cat1">&nbsp;Cat 1</label>
+                                </div>
+                                <div class="radio" th:remove="all">
+                                    <input id="cat2" type="checkbox" value=""/>
+                                    <label for="cat2">&nbsp;Cat 2</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="prepTime">Prep Time:</label>
+                                <input id="prepTime" type="text" class="form-control" th:field="*{recipe.prepTime}"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="cookTime">Cook time:</label>
+                                <input id="cookTime" type="text" class="form-control" th:field="*{recipe.cookTime}"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="difficulty">Difficulty:</label>
+                                <select id="difficulty" class="form-control" th:field="*{recipe.difficulty}" >
+                                    <option th:each="difficulty : ${T(com.signature.recipe.model.Difficulty).values()}"
+                                            th:value="${difficulty}" th:text="${difficulty.getDisplayName()}"
+                                            th:selected="${recipe.difficulty == difficulty}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="servings">Servings:</label>
+                                <input id="servings" type="text" class="form-control" th:field="*{recipe.servings}"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="source">Source:</label>
+                                <input id="source" type="text" class="form-control" th:field="*{recipe.source}"/>
+                            </div>
+                            <div class="col-sm-12 col-md-4 mb-3">
+                                <label for="url">URL:</label>
+                                <input id="url" type="text" class="form-control" th:field="*{recipe.url}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-10 col-sm-10 col-md-10 col-lg-11">
+                                <label class="card-title mt-1">Ingredients</label>
+                            </div>
+                            <div class="col-2 col-sm-2 col-md-2 col-lg-1">
+                                <a class="btn btn-default text-white" href="#" role="button">Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">1 Cup of milk</li>
+                                    <li th:remove="all">1 Teaspoon of chocolate</li>
+                                    <li th:each="ingredient : ${recipe.ingredients}"
+                                        th:text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.unitOfMeasure.getDescription() +
+                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h6 class="card-title">Directions</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <textarea class="form-control" rows="3" th:field="*{recipe.directions}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h6 class="card-title">Notes</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <textarea class="form-control" rows="3"
+                                          th:field="*{recipe.notes.description}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mb-4">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

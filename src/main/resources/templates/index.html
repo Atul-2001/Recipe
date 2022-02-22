@@ -29,7 +29,14 @@
         <div class="col-md-6 offset-md-3">
             <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title">My Recipes!</h1>
+                    <div class="row">
+                        <div class="col-8 col-sm-9 col-md-9 col-lg-10">
+                            <h1 class="card-title">My Recipes!</h1>
+                        </div>
+                        <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+                            <a class="new" th:href="@{'/recipe/new'}" role="button">&plus; New</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
@@ -39,22 +46,26 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>View</th>
+                                <th>Update</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
                                 <td th:text="${recipe.id}">123</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 1</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td th:text="${recipe.id}">12333</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 2</td>
                                 <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a></td>
                             </tr>
                         </table>
                     </div>

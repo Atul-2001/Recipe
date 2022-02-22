@@ -27,14 +27,23 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 offset-md-3">
+            <div class="row">
+                <div class="col-6 text-start">
+                    <a class="back" th:href="@{'/'}">
+                        &#9204; Back</a>
+                </div>
+                <div class="col-6 text-end">
+                    <a class="edit" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">&#9998; Edit</a>
+                </div>
+            </div>
             <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                    <h6 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>Categories:</h5>
+                            <label>Categories:</label>
                         </div>
                         <div class="col-md-9">
                             <ul>
@@ -48,13 +57,13 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>Prep Time:</h5>
+                            <label>Prep Time:</label>
                         </div>
                         <div class="col-md-3">
                             <p th:text="${recipe.prepTime} + ' min'">30 min</p>
                         </div>
                         <div class="col-md-3">
-                            <h5>Difficulty:</h5>
+                            <label>Difficulty:</label>
                         </div>
                         <div class="col-md-3">
                             <p th:text="${recipe.difficulty}">Easy</p>
@@ -63,13 +72,13 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>Cook time:</h5>
+                            <label>Cook time:</label>
                         </div>
                         <div class="col-md-3">
                             <p th:text="${recipe.cookTime} + ' min'">30 min</p>
                         </div>
                         <div class="col-md-3">
-                            <h5>Servings:</h5>
+                            <label>Servings:</label>
                         </div>
                         <div class="col-md-3">
                             <p th:text="${recipe.servings}">4</p>
@@ -78,13 +87,13 @@
 
                     <div class="row">
                         <div class="col-md-3">
-                            <h5>Source:</h5>
+                            <label>Source:</label>
                         </div>
                         <div class="col-md-3">
                             <p th:text="${recipe.source}">30 min</p>
                         </div>
                         <div class="col-md-3">
-                            <h5>URL:</h5>
+                            <label>URL:</label>
                         </div>
                         <div class="col-md-3">
                             <p><a th:href="${recipe.url}">View original</a></p>
@@ -93,9 +102,9 @@
                 </div>
             </div>
 
-            <div class="card card-primary mt-2">
+            <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title">Ingredients</h1>
+                    <h6 class="card-title">Ingredients</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -112,9 +121,9 @@
                 </div>
             </div>
 
-            <div class="card card-primary mt-2">
+            <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title">Directions</h1>
+                    <h6 class="card-title">Directions</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -137,9 +146,9 @@
                 </div>
             </div>
 
-            <div class="card card-primary mt-2 mb-4">
+            <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title">Notes</h1>
+                    <h6 class="card-title">Notes</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
