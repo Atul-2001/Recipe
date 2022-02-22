@@ -1,5 +1,7 @@
 package com.signature.recipe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.signature.recipe.data.NoteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -57,5 +59,10 @@ public class Note {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @JsonIgnore
+    public NoteDTO getDTO() {
+        return new NoteDTO(id, description);
     }
 }

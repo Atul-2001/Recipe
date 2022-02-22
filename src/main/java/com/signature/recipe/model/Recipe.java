@@ -1,5 +1,7 @@
 package com.signature.recipe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.signature.recipe.data.RecipeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +25,7 @@ import javax.persistence.OneToOne;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -99,5 +102,23 @@ public class Recipe {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @JsonIgnore
+    public RecipeDTO getDTO() {
+        final RecipeDTO recipeDTO = new RecipeDTO();
+        recipeDTO.setId(id);
+        recipeDTO.setUrl(url);
+        recipeDTO.setSource(source);
+        recipeDTO.setPrepTime(prepTime);
+        recipeDTO.setCookTime(cookTime);
+        recipeDTO.setServings(servings);
+        recipeDTO.setNotes(note.getDTO());
+        recipeDTO.setDifficulty(difficulty);
+        recipeDTO.setDirections(directions);
+        recipeDTO.setDescription(description);
+        recipeDTO.setCategories(categories.stream().map(Category::getDTO).collect(Collectors.toSet()));
+        recipeDTO.setIngredients(ingredients.stream().map(Ingredient::getDTO).collect(Collectors.toSet()));
+        return recipeDTO;
     }
 }

@@ -1,5 +1,7 @@
 package com.signature.recipe.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.signature.recipe.data.IngredientDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -68,5 +70,10 @@ public class Ingredient {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    @JsonIgnore
+    public IngredientDTO getDTO() {
+        return new IngredientDTO(id, amount, description, unit.getDTO());
     }
 }
