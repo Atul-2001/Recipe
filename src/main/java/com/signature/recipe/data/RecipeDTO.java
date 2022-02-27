@@ -2,6 +2,7 @@ package com.signature.recipe.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.signature.recipe.model.Difficulty;
+import com.signature.recipe.model.Ingredient;
 import com.signature.recipe.model.Recipe;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -38,7 +41,9 @@ public class RecipeDTO {
     return Recipe.builder().id(id).url(url).source(source).note(notes == null ? null : notes.getModel()).prepTime(prepTime)
             .cookTime(cookTime).servings(servings).directions(directions).description(description).difficulty(difficulty)
             .categories(categories.stream().map(CategoryDTO::getModel).collect(Collectors.toSet()))
-            .ingredients(ingredients.stream().map(IngredientDTO::getModel).collect(Collectors.toSet()))
+            .ingredients(ingredients.stream().map(IngredientDTO::getModel)
+                    .sorted(Comparator.comparingLong(Ingredient::getId))
+                    .collect(Collectors.toCollection(LinkedHashSet::new)))
             .build();
   }
 }

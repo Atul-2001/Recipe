@@ -1,6 +1,7 @@
 package com.signature.recipe.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.signature.recipe.data.IngredientDTO;
 import com.signature.recipe.data.RecipeDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +23,9 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -119,8 +122,11 @@ public class Recipe {
         recipeDTO.setDirections(directions);
         recipeDTO.setDescription(description);
         recipeDTO.setNotes(note == null ? null : note.getDTO());
-        recipeDTO.setCategories(categories.stream().map(Category::getDTO).collect(Collectors.toSet()));
-        recipeDTO.setIngredients(ingredients.stream().map(Ingredient::getDTO).collect(Collectors.toSet()));
+        recipeDTO.setCategories(categories.stream().map(Category::getDTO)
+                .collect(Collectors.toSet()));
+        recipeDTO.setIngredients(ingredients.stream().map(Ingredient::getDTO)
+                .sorted(Comparator.comparingLong(IngredientDTO::getId))
+                .collect(Collectors.toCollection(LinkedHashSet::new)));
         return recipeDTO;
     }
 }

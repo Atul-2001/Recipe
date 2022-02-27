@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,7 +50,8 @@
                                 <li th:remove="all">cat one</li>
                                 <li th:remove="all">cat two</li>
                                 <li th:each="category : ${recipe.categories}"
-                                    th:text="${category.description}">cat three</li>
+                                    th:text="${category.description}">cat three
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -104,7 +105,15 @@
 
             <div class="card card-primary">
                 <div class="card-header">
-                    <h6 class="card-title">Ingredients</h6>
+                    <div class="row">
+                        <div class="col-10 col-sm-10 col-md-10 col-lg-11">
+                            <label class="card-title mt-1">Ingredients</label>
+                        </div>
+                        <div class="col-2 col-sm-2 col-md-2 col-lg-1">
+                            <a class="btn btn-default text-white"
+                               th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -114,7 +123,8 @@
                                 <li th:remove="all">1 Teaspoon of chocolate</li>
                                 <li th:each="ingredient : ${recipe.ingredients}"
                                     th:text="${ingredient.amount} + ' ' + ${ingredient.unit.description}
-                                    + ' - ' + ${ingredient.description}">1 Teaspoon of Sugar</li>
+                                    + ' - ' + ${ingredient.description}">1 Teaspoon of Sugar
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -128,7 +138,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                            <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                                Aenean commodo ligula eget
                                 dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                 nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                 quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
@@ -153,7 +164,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <p th:text="${recipe.note.description}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                            <p th:text="${recipe.note.description}">Lorem ipsum dolor sit amet, consectetuer adipiscing
+                                elit. Aenean commodo ligula eget
                                 dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                 nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                 quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
