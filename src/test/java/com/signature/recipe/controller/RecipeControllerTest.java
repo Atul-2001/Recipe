@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -80,5 +82,16 @@ class RecipeControllerTest {
 
     mockMvc.perform(post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED))
             .andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/recipe/2/show"));
+  }
+
+  @Test
+  void deleteRecipe() throws Exception {
+    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+    mockMvc.perform(get("/recipe/1/delete"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/"));
+
+    verify(recipeService, times(1)).deleteById(anyLong());
   }
 }

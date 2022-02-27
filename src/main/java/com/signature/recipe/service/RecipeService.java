@@ -17,7 +17,7 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
 
     public RecipeService(RecipeRepository recipeRepository) {
-        log.trace("Loading Recipe Service...");
+        log.debug("Loading Recipe Service...");
         this.recipeRepository = recipeRepository;
     }
 
@@ -26,13 +26,23 @@ public class RecipeService {
     }
 
     public List<Recipe> getAllRecipes() {
-        log.info("Getting list of recipes...");
+        log.debug("Getting list of recipes...");
         return StreamSupport.stream(recipeRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
     }
 
     public Recipe getById(final Long id) {
-        log.info("Getting recipe for id : " + id);
+        log.debug("Getting recipe for id : " + id);
         return id == null ? null : recipeRepository.findById(id).orElse(null);
+    }
+
+    public void delete(final Recipe recipe) {
+        log.debug("Deleting recipe using recipe model");
+        recipeRepository.delete(recipe);
+    }
+
+    public void deleteById(final Long id) {
+        log.debug("Deleting recipe for id : " + id);
+        recipeRepository.deleteById(id);
     }
 }

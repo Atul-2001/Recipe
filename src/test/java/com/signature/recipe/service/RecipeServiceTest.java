@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.anyLong;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
@@ -58,5 +59,22 @@ class RecipeServiceTest {
         assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
+    }
+
+
+    @Test
+    void delete() {
+        Recipe recipe = Recipe.builder().id(1L).build();
+
+        recipeService.delete(recipe);
+
+        verify(recipeRepository, times(1)).delete(any());
+    }
+
+    @Test
+    void deleteById() {
+        recipeService.deleteById(1L);
+
+        verify(recipeRepository, times(1)).deleteById(anyLong());
     }
 }

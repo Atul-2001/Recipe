@@ -47,4 +47,10 @@ public class RecipeController {
     final Recipe recipe = recipeService.save(recipeDTO);
     return "redirect:/recipe/".concat(String.valueOf(recipe.getId())).concat("/show");
   }
+
+  @GetMapping("/{id}/delete")
+  public String deleteRecipe(@PathVariable String id) {
+    recipeService.deleteById(Long.parseLong(id));
+    return "redirect:/";
+  }
 }
