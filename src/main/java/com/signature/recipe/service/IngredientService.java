@@ -36,7 +36,7 @@ public class IngredientService {
               .filter(ingredient -> ingredient.getId().equals(ingredientDTO.getId()))
               .findFirst();
 
-      if(ingredientOptional.isPresent()){
+      if (ingredientOptional.isPresent()) {
         Ingredient ingredientFound = ingredientOptional.get();
         ingredientFound.setDescription(ingredientDTO.getDescription());
         ingredientFound.setAmount(ingredientDTO.getAmount());
@@ -44,16 +44,24 @@ public class IngredientService {
                 .findById(ingredientDTO.getUnitOfMeasure().getId())
                 .orElseThrow(() -> new RuntimeException("UOM NOT FOUND")));
       } else {
-        recipe.addIngredients(ingredientDTO.getModel());
+        recipe.addIngredient(ingredientDTO.getModel());
       }
 
       final Recipe savedRecipe = recipeRepository.save(recipe);
 
-      final Ingredient ingredient = savedRecipe.getIngredients().stream()
-              .filter(recipeIngredients -> recipeIngredients.getId().equals(ingredientDTO.getId()))
-              .findFirst().orElse(null);
+      ingredientOptional = savedRecipe.getIngredients().stream()
+              .filter(ingredient -> ingredient.getId().equals(ingredientDTO.getId()))
+              .findFirst();
 
-      return Objects.isNull(ingredient) ? null : ingredient.getDTO();
+      if (ingredientOptional.isEmpty()) {
+        ingredientOptional = savedRecipe.getIngredients().stream()
+                .filter(recipeIngredients -> recipeIngredients.getDescription().equals(ingredientDTO.getDescription()))
+                .filter(recipeIngredients -> recipeIngredients.getAmount().equals(ingredientDTO.getAmount()))
+                .filter(recipeIngredients -> recipeIngredients.getUnit().getId().equals(ingredientDTO.getUnitOfMeasure().getId()))
+                .findFirst();
+      }
+
+      return ingredientOptional.isEmpty() ? null : ingredientOptional.get().getDTO();
     }
   }
 

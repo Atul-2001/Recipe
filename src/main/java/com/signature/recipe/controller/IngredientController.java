@@ -1,6 +1,7 @@
 package com.signature.recipe.controller;
 
 import com.signature.recipe.data.IngredientDTO;
+import com.signature.recipe.data.UnitOfMeasureDTO;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.service.IngredientService;
 import com.signature.recipe.service.RecipeService;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -30,6 +33,26 @@ public class IngredientController {
     this.recipeService = recipeService;
     this.ingredientService = ingredientService;
     this.unitOfMeasureService = unitOfMeasureService;
+  }
+
+  @GetMapping("/ingredient/new")
+  public String newRecipe(@PathVariable String recipeId, Model model) {
+    //make sure we have a good id value
+    Recipe recipe = recipeService.getById(Long.valueOf(recipeId));
+
+    if (Objects.isNull(recipe)) {
+      throw new RuntimeException("Recipe not found for id : " + recipeId);
+    }
+
+    //need to return parent id for hidden form property
+    IngredientDTO ingredientDTO = new IngredientDTO();
+    ingredientDTO.setRecipeId(Long.valueOf(recipeId));
+    ingredientDTO.setUnitOfMeasure(new UnitOfMeasureDTO());
+
+    model.addAttribute("ingredient", ingredientDTO);
+    model.addAttribute("unitOfMeasures", unitOfMeasureService.getAll());
+
+    return "/recipe/ingredient/form";
   }
 
   @GetMapping("/ingredients")

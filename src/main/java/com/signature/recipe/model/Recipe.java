@@ -85,7 +85,7 @@ public class Recipe {
         return this;
     }
 
-    public Recipe addIngredients(Ingredient ingredient) {
+    public Recipe addIngredient(Ingredient ingredient) {
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
         return this;

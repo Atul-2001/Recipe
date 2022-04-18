@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="difficulty">Difficulty:</label>
-                                <select id="difficulty" class="form-control" th:field="${recipe.difficulty}" >
+                                <select id="difficulty" class="form-control" th:field="${recipe.difficulty}">
                                     <option th:each="difficulty : ${T(com.signature.recipe.model.Difficulty).values()}"
                                             th:value="${difficulty}" th:text="${difficulty.getDisplayName()}"
                                             th:selected="${recipe.difficulty == difficulty}"></option>
@@ -99,7 +99,8 @@
                                 <label class="card-title mt-1">Ingredients</label>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2 col-lg-1">
-                                <a class="btn btn-default text-white" href="#" role="button">Edit</a>
+                                <a class="btn btn-default text-white" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
                             </div>
                         </div>
                     </div>
