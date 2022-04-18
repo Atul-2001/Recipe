@@ -29,9 +29,8 @@
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <a class="back" th:href="@{'/'}">&#9204; Back</a>
-<!--            <form th:object="${recipe}" th:action="@{/recipe/}" method="post">-->
             <form th:action="@{/recipe/}" method="post">
-                <input type="hidden" th:field="*{recipe.id}"/>
+                <input type="hidden" th:field="${recipe.id}"/>
                 <div class="card card-primary">
                     <div class="card-header">
                         <h6 class="card-title">Edit Recipe Information</h6>
@@ -41,7 +40,7 @@
                             <div class="col-sm-12 col-md-4 mb-2">
                                 <label for="description">Recipe Description:</label>
                                 <input id="description" type="text" class="form-control"
-                                       th:field="*{recipe.description}"/>
+                                       th:field="${recipe.description}"/>
                             </div>
                         </div>
                         <div class="row">
@@ -62,15 +61,15 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="prepTime">Prep Time:</label>
-                                <input id="prepTime" type="text" class="form-control" th:field="*{recipe.prepTime}"/>
+                                <input id="prepTime" type="text" class="form-control" th:field="${recipe.prepTime}"/>
                             </div>
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="cookTime">Cook time:</label>
-                                <input id="cookTime" type="text" class="form-control" th:field="*{recipe.cookTime}"/>
+                                <input id="cookTime" type="text" class="form-control" th:field="${recipe.cookTime}"/>
                             </div>
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="difficulty">Difficulty:</label>
-                                <select id="difficulty" class="form-control" th:field="*{recipe.difficulty}" >
+                                <select id="difficulty" class="form-control" th:field="${recipe.difficulty}" >
                                     <option th:each="difficulty : ${T(com.signature.recipe.model.Difficulty).values()}"
                                             th:value="${difficulty}" th:text="${difficulty.getDisplayName()}"
                                             th:selected="${recipe.difficulty == difficulty}"></option>
@@ -80,15 +79,15 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="servings">Servings:</label>
-                                <input id="servings" type="text" class="form-control" th:field="*{recipe.servings}"/>
+                                <input id="servings" type="text" class="form-control" th:field="${recipe.servings}"/>
                             </div>
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="source">Source:</label>
-                                <input id="source" type="text" class="form-control" th:field="*{recipe.source}"/>
+                                <input id="source" type="text" class="form-control" th:field="${recipe.source}"/>
                             </div>
                             <div class="col-sm-12 col-md-4 mb-3">
                                 <label for="url">URL:</label>
-                                <input id="url" type="text" class="form-control" th:field="*{recipe.url}"/>
+                                <input id="url" type="text" class="form-control" th:field="${recipe.url}"/>
                             </div>
                         </div>
                     </div>
@@ -127,7 +126,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 form-group">
-                                <textarea class="form-control" rows="3" th:field="*{recipe.directions}"></textarea>
+                                <textarea class="form-control" rows="3" th:field="${recipe.directions}"></textarea>
                             </div>
                         </div>
                     </div>
@@ -140,7 +139,7 @@
                         <div class="row">
                             <div class="col-md-12 form-group">
                                 <textarea class="form-control" rows="3"
-                                          th:field="*{recipe.notes.description}"></textarea>
+                                          th:field="${recipe.notes.description}"></textarea>
                             </div>
                         </div>
                     </div>

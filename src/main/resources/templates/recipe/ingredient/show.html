@@ -14,11 +14,10 @@
 
     <link href="/static/assets/stylesheet/style.css" rel="stylesheet" th:href="@{/assets/stylesheet/style.css}">
 
-    <title>Recipe Ingredients</title>
+    <title>View Ingredient</title>
 </head>
 <body>
 
-<!--/*@thymesVar id="recipe" type="com.signature.recipe.data.RecipeDTO"*/-->
 <!--/*@thymesVar id="unit" type="com.signature.recipe.data.UnitOfMeasureDTO"*/-->
 <!--/*@thymesVar id="ingredient" type="com.signature.recipe.data.IngredientDTO"*/-->
 
@@ -27,63 +26,37 @@
         <div class="col-md-6 offset-md-3">
             <div class="row">
                 <div class="col-6 text-start">
-                    <a class="back" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">&#9204; Back</a>
+                    <a class="back" th:href="@{'/recipe/' + ${ingredient.recipeId} + '/ingredients'}">&#9204; Back</a>
                 </div>
             </div>
             <div class="card card-primary">
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-8 col-sm-9 col-md-9 col-lg-10">
-                            <h1 class="card-title">Ingredients</h1>
-                        </div>
-                        <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-                            <a class="new"
-                               th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}" role="button">&plus; New</a>
-                        </div>
-                    </div>
+                    <h1 class="card-title">Ingredient</h1>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                    <div class="table-responsive">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
                                 <th>ID</th>
                                 <th>Description</th>
-                                <th>View</th>
+                                <th>Amount</th>
+                                <th>Unit</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
                             </thead>
-                            <tr th:remove="all">
-                                <td>123</td>
-                                <td>Tasty Goodnees 1</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Update</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr th:remove="all">
-                                <td>12333</td>
-                                <td>Tasty Goodnees 2</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Update</a></td>
-                                <td><a href="#">Delete</a></td>
-                            </tr>
-                            <tr th:each="ingredient : ${recipe.ingredients}">
-                                <td th:text="${ingredient.id}">334</td>
-                                <td th:text="${ingredient.amount} + ' ' +
-                                ${ingredient.unitOfMeasure.getDescription()} + ' ' +
-                                ${ingredient.description}">Tasty Goodnees 3
-                                </td>
+                            <tr>
+                                <td th:text="${ingredient.id}">1</td>
+                                <td th:text="${ingredient.description}">Avogadro</td>
+                                <td th:text="${ingredient.amount}">1</td>
+                                <td th:text="${ingredient.unitOfMeasure.description}">gm</td>
                                 <td>
-                                    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +
-                                    '/ingredient/' + ${ingredient.id} + '/show'}">View</a>
-                                </td>
-                                <td>
-                                    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +
+                                    <a href="#" th:href="@{'/recipe/' + ${ingredient.recipeId} +
                                     '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
                                 </td>
                                 <td>
-                                    <a href="#" th:href="@{'/recipe/' + ${recipe.id} +
+                                    <a href="#" th:href="@{'/recipe/' + ${ingredient.recipeId} +
                                     '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
                                 </td>
                             </tr>

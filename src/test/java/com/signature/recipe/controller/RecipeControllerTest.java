@@ -57,7 +57,7 @@ class RecipeControllerTest {
 
     mockMvc.perform(get("/recipe/new"))
             .andExpect(status().isOk())
-            .andExpect(view().name("recipe/add"))
+            .andExpect(view().name("recipe/form"))
             .andExpect(model().attribute("recipe", instanceOf(RecipeDTO.class)));
   }
 
@@ -69,7 +69,7 @@ class RecipeControllerTest {
 
     mockMvc.perform(get("/recipe/1/update"))
             .andExpect(status().isOk())
-            .andExpect(view().name("recipe/add"))
+            .andExpect(view().name("recipe/form"))
             .andExpect(model().attribute("recipe", instanceOf(RecipeDTO.class)));
   }
 

@@ -26,7 +26,7 @@ public class RecipeController {
   @GetMapping("/new")
   public String createRecipe(final Model model) {
     model.addAttribute("recipe", new RecipeDTO());
-    return "recipe/add";
+    return "recipe/form";
   }
 
   @GetMapping("/{id}/show")
@@ -39,7 +39,7 @@ public class RecipeController {
   @GetMapping("/{id}/update")
   public String updateRecipe(@PathVariable String id, final Model model) {
     model.addAttribute("recipe", recipeService.getById(Long.parseLong(id)).getDTO());
-    return "recipe/add";
+    return "recipe/form";
   }
 
   @PostMapping
