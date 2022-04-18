@@ -128,4 +128,21 @@ class IngredientServiceTest {
     assertEquals(Long.valueOf(1L), ingredient.getRecipeId());
     verify(recipeRepository, times(1)).findById(anyLong());
   }
+
+  @Test
+  void deleteByRecipeAndId() {
+    //given
+    Recipe recipe = new Recipe();
+    recipe.addIngredient(Ingredient.builder().id(3L).build());
+    Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+    //when
+    when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+    ingredientService.deleteByRecipeAndId(1L, 3L);
+
+    //then
+    verify(recipeRepository, times(1)).findById(anyLong());
+    verify(recipeRepository, times(1)).save(any(Recipe.class));
+  }
 }

@@ -83,4 +83,28 @@ public class IngredientService {
       return null;
     }
   }
+
+  public void deleteByRecipeAndId(final Long recipeId, final Long ingredientId) {
+    log.debug("Deleting ingredient : " + recipeId + " : " + ingredientId);
+
+    Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+
+    if (recipeOptional.isPresent()) {
+      Recipe recipe = recipeOptional.get();
+
+      Optional<Ingredient> ingredientOptional = recipe.getIngredients().stream()
+              .filter(ingredient -> ingredient.getId().equals(ingredientId)).findFirst();
+
+      if (ingredientOptional.isPresent()) {
+        Ingredient ingredient = ingredientOptional.get();
+        recipe.getIngredients().remove(ingredient);
+        ingredient.setRecipe(null);
+        recipeRepository.save(recipe);
+      } else {
+        log.debug("Ingredient not found for id : " + ingredientId);
+      }
+    } else {
+      log.debug("Recipe not found fo id : " + recipeId);
+    }
+  }
 }
