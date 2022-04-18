@@ -71,8 +71,8 @@
                                 <label for="difficulty">Difficulty:</label>
                                 <select id="difficulty" class="form-control" th:field="${recipe.difficulty}">
                                     <option th:each="difficulty : ${T(com.signature.recipe.model.Difficulty).values()}"
-                                            th:value="${difficulty}" th:text="${difficulty.getDisplayName()}"
-                                            th:selected="${recipe.difficulty == difficulty}"></option>
+                                            th:value="${difficulty}" th:text="${difficulty.getDisplayName()}">
+                                    </option>
                                 </select>
                             </div>
                         </div>
