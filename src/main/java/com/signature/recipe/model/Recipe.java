@@ -23,6 +23,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.Base64;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -79,6 +80,35 @@ public class Recipe {
         this.ingredients = new HashSet<>();
     }
 
+    public byte[] getImage() {
+        if (Objects.isNull(image)) {
+            return new byte[0];
+        }
+        byte[] bytes = new byte[image.length];
+        for (int i = 0; i < image.length; i++) {
+            bytes[i] = image[i];
+        }
+        return bytes;
+    }
+
+    public void setImage(byte[] image) {
+        if (Objects.nonNull(image)) {
+            Byte[] bytes = new Byte[image.length];
+            for (int i = 0; i < image.length; i++) {
+                bytes[i] = image[i];
+            }
+            this.image = bytes;
+        }
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
+    }
+
+    public String getBase64Image() {
+        return "data:image/jpeg;base64,".concat(Base64.getMimeEncoder().encodeToString(getImage()));
+    }
+
     public Recipe addCategory(Category category) {
         category.getRecipes().add(this);
         this.categories.add(category);
@@ -109,11 +139,31 @@ public class Recipe {
         return getClass().hashCode();
     }
 
+    public static class RecipeBuilder {
+
+        public RecipeBuilder image(byte[] image) {
+            if (Objects.nonNull(image)) {
+                Byte[] bytes = new Byte[image.length];
+                for (int i = 0; i < image.length; i++) {
+                    bytes[i] = image[i];
+                }
+                this.image = bytes;
+            }
+            return this;
+        }
+
+        public RecipeBuilder image(Byte[] image) {
+            this.image = image;
+            return this;
+        }
+    }
+
     @JsonIgnore
     public RecipeDTO getDTO() {
         final RecipeDTO recipeDTO = new RecipeDTO();
         recipeDTO.setId(id);
         recipeDTO.setUrl(url);
+        recipeDTO.setImage(image);
         recipeDTO.setSource(source);
         recipeDTO.setPrepTime(prepTime);
         recipeDTO.setCookTime(cookTime);

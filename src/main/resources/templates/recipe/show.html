@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous"
-          th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
+          crossorigin="anonymous" th:href="@{/webjars/bootstrap/5.1.1/css/bootstrap.min.css}">
 
     <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
           rel="stylesheet" crossorigin="anonymous" th:href="@{/webjars/jquery-ui/1.13.0/jquery-ui.min.css}">
@@ -24,13 +23,34 @@
 <!--/*@thymesVar id="unit" type="com.signature.recipe.model.UnitOfMeasure"*/-->
 <!--/*@thymesVar id="note" type="com.signature.recipe.model.Note"*/-->
 
+<div class="modal fade" id="file-upload-modal" tabindex="-1" aria-labelledby="fileUploadModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload a new recipe image</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data"
+                  th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}">
+                <div class="modal-body">
+                    <label class="control-label">Select File : </label>
+                    <input id="image" name="file" type="file" class="file">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 offset-md-3">
             <div class="row">
                 <div class="col-6 text-start">
-                    <a class="back" th:href="@{'/'}">
-                        &#9204; Back</a>
+                    <a class="back" th:href="@{'/'}">&#9204; Back</a>
                 </div>
                 <div class="col-6 text-end">
                     <a class="edit" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">&#9998; Edit</a>
@@ -38,14 +58,21 @@
             </div>
             <div class="card card-primary">
                 <div class="card-header">
-                    <h6 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h6>
+                    <div class="row">
+                        <h6 class="col-8 card-title py-2 fs-4" th:text="${recipe.description}">Recipe Description
+                            Here!</h6>
+                        <div class="col-4 text-end">
+                            <a class="edit my-1" role="button" data-bs-toggle="modal"
+                               data-bs-target="#file-upload-modal">Change Image</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
                             <label>Categories:</label>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-3">
                             <ul>
                                 <li th:remove="all">cat one</li>
                                 <li th:remove="all">cat two</li>
@@ -53,6 +80,10 @@
                                     th:text="${category.description}">cat three
                                 </li>
                             </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="../../static/images/guacamole.jpg" th:src="${recipe.getBase64Image()}"
+                                 width="200" height="200" alt="guacamole.jpg">
                         </div>
                     </div>
 
@@ -187,7 +218,6 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous" th:src="@{/webjars/bootstrap/5.1.1/js/bootstrap.min.js}"></script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
