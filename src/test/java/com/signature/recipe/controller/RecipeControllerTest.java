@@ -104,4 +104,15 @@ class RecipeControllerTest {
 
     mockMvc.perform(get("/recipe/1/show")).andExpect(status().isNotFound());
   }
+
+  @Test
+  public void testGetRecipeNotFound2() throws Exception {
+    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+    when(recipeService.getById(anyLong())).thenThrow(NotFoundException.class);
+
+    mockMvc.perform(get("/recipe/1/show"))
+            .andExpect(status().isNotFound())
+            .andExpect(view().name("recipe/404"));
+  }
 }
