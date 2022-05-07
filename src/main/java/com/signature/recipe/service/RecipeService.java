@@ -1,12 +1,14 @@
 package com.signature.recipe.service;
 
 import com.signature.recipe.data.RecipeDTO;
+import com.signature.recipe.exceptions.NotFoundException;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.repository.RecipeRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -33,7 +35,11 @@ public class RecipeService {
 
     public Recipe getById(final Long id) {
         log.debug("Getting recipe for id : " + id);
-        return id == null ? null : recipeRepository.findById(id).orElse(null);
+        Optional<Recipe> recipe =  recipeRepository.findById(id);
+        if (recipe.isEmpty()) {
+            throw new NotFoundException("Recipe Not Found");
+        }
+        return recipe.orElse(null);
     }
 
     public void delete(final Recipe recipe) {

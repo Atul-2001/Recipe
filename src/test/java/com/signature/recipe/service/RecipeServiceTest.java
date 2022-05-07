@@ -1,7 +1,9 @@
 package com.signature.recipe.service;
 
+import com.signature.recipe.exceptions.NotFoundException;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.repository.RecipeRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -76,5 +78,16 @@ class RecipeServiceTest {
         recipeService.deleteById(1L);
 
         verify(recipeRepository, times(1)).deleteById(anyLong());
+    }
+
+    @Test
+    public void getRecipeByIdTestNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            Recipe recipeReturned = recipeService.getById(1L);
+        });
     }
 }

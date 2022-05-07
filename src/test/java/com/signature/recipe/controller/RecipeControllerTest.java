@@ -1,6 +1,7 @@
 package com.signature.recipe.controller;
 
 import com.signature.recipe.data.RecipeDTO;
+import com.signature.recipe.exceptions.NotFoundException;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.service.RecipeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,5 +94,14 @@ class RecipeControllerTest {
             .andExpect(view().name("redirect:/"));
 
     verify(recipeService, times(1)).deleteById(anyLong());
+  }
+
+  @Test
+  public void testGetRecipeNotFound() throws Exception {
+    MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+
+    when(recipeService.getById(anyLong())).thenThrow(NotFoundException.class);
+
+    mockMvc.perform(get("/recipe/1/show")).andExpect(status().isNotFound());
   }
 }

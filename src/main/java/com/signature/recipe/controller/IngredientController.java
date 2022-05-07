@@ -2,6 +2,7 @@ package com.signature.recipe.controller;
 
 import com.signature.recipe.data.IngredientDTO;
 import com.signature.recipe.data.UnitOfMeasureDTO;
+import com.signature.recipe.exceptions.NotFoundException;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.service.IngredientService;
 import com.signature.recipe.service.RecipeService;
@@ -41,7 +42,7 @@ public class IngredientController {
     Recipe recipe = recipeService.getById(Long.valueOf(recipeId));
 
     if (Objects.isNull(recipe)) {
-      throw new RuntimeException("Recipe not found for id : " + recipeId);
+      throw new NotFoundException("Recipe not found for id : " + recipeId);
     }
 
     //need to return parent id for hidden form property
