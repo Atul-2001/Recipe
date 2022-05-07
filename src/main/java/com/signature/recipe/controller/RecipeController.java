@@ -30,10 +30,11 @@ public class RecipeController {
 
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @ExceptionHandler(NotFoundException.class)
-  public ModelAndView handleNotFound(){
+  public ModelAndView handleNotFound(Exception exception){
     log.error("Handling not found exception");
-
-    return new ModelAndView("recipe/404");
+    log.error("Message : {}", exception.getMessage());
+    return new ModelAndView("404")
+            .addObject("ex", exception);
   }
 
   @GetMapping("/new")

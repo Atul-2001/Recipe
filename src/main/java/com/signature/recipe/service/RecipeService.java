@@ -37,7 +37,7 @@ public class RecipeService {
         log.debug("Getting recipe for id : " + id);
         Optional<Recipe> recipe =  recipeRepository.findById(id);
         if (recipe.isEmpty()) {
-            throw new NotFoundException("Recipe Not Found");
+            throw new NotFoundException("Recipe Not Found for id : " + id);
         }
         return recipe.orElse(null);
     }
