@@ -8,8 +8,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.data.annotation.Id;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.Base64;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -26,14 +31,24 @@ public class RecipeDTO {
 
   @Id
   private Long id;
+  @URL
   private String url;
   private Byte[] image;
   private String source;
   private NoteDTO notes;
+  @Min(1)
+  @Max(999)
   private Integer prepTime;
+  @Min(1)
+  @Max(999)
   private Integer cookTime;
+  @Min(1)
+  @Max(100)
   private Integer servings;
+  @NotBlank
   private String directions;
+  @NotBlank
+  @Size(min = 3, max = 255)
   private String description;
   private Difficulty difficulty;
   private Set<CategoryDTO> categories = new HashSet<>();

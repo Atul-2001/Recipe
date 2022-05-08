@@ -79,8 +79,12 @@ class RecipeControllerTest {
     when(recipeService.save(any())).thenReturn(Recipe.builder().id(2L).build());
     when(recipeService.getById(anyLong())).thenReturn(Recipe.builder().id(2L).build());
 
-    mockMvc.perform(post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED))
-            .andExpect(status().is3xxRedirection()).andExpect(view().name("redirect:/recipe/2/show"));
+    mockMvc.perform(post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param("id", "2")
+                    .param("directions", "some directions")
+                    .param("description", "some descriptions"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(view().name("redirect:/recipe/2/show"));
   }
 
   @Test
@@ -113,5 +117,16 @@ class RecipeControllerTest {
     mockMvc.perform(get("/recipe/4a/show"))
             .andExpect(status().isBadRequest())
             .andExpect(view().name("400"));
+  }
+
+  @Test
+  public void testPostNewRecipeFormValidationFail() throws Exception {
+    Recipe recipe = Recipe.builder().id(2L).build();
+
+    when(recipeService.save(any())).thenReturn(recipe);
+
+    mockMvc.perform(post("/recipe").contentType(MediaType.APPLICATION_FORM_URLENCODED))
+            .andExpect(status().isOk()).andExpect(model().attributeExists("recipe"))
+            .andExpect(view().name("recipe/form"));
   }
 }

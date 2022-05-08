@@ -37,6 +37,7 @@ public class Note {
     private String description;
 
     @OneToOne
+    @ToString.Exclude
     private Recipe recipe;
 
     public Note(String description) {
