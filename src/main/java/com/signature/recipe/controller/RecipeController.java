@@ -1,6 +1,7 @@
 package com.signature.recipe.controller;
 
 import com.signature.recipe.data.RecipeDTO;
+import com.signature.recipe.model.Ingredient;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.service.RecipeService;
 import lombok.extern.log4j.Log4j2;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 @Log4j2
 @Controller
@@ -53,6 +55,8 @@ public class RecipeController {
       bindingResult.getAllErrors().forEach(objectError -> {
         log.debug(objectError.toString());
       });
+      recipeDTO.setIngredients(recipeService.getById(recipeDTO.getId()).getIngredients()
+              .stream().map(Ingredient::getDTO).collect(Collectors.toSet()));
       return RECIPE_FORM_URL;
     }
 
