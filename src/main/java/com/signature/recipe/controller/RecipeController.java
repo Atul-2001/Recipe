@@ -1,21 +1,16 @@
 package com.signature.recipe.controller;
 
 import com.signature.recipe.data.RecipeDTO;
-import com.signature.recipe.exceptions.NotFoundException;
 import com.signature.recipe.model.Recipe;
 import com.signature.recipe.service.RecipeService;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 @Log4j2
 @Controller
@@ -26,15 +21,6 @@ public class RecipeController {
 
   public RecipeController(RecipeService recipeService) {
     this.recipeService = recipeService;
-  }
-
-  @ResponseStatus(HttpStatus.NOT_FOUND)
-  @ExceptionHandler(NotFoundException.class)
-  public ModelAndView handleNotFound(Exception exception){
-    log.error("Handling not found exception");
-    log.error("Message : {}", exception.getMessage());
-    return new ModelAndView("404")
-            .addObject("ex", exception);
   }
 
   @GetMapping("/new")
