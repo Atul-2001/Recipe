@@ -45,6 +45,7 @@
                             <div th:class="${#fields.hasErrors('description')
                              ? 'col-sm-12 col-md-4 mb-2 is-invalid' : 'col-sm-12 col-md-4 mb-2'}">
                                 <label for="description">Recipe Description:</label>
+<!--                                <label th:text="#{recipe.description}">Recipe Description d:</label>-->
                                 <input id="description" type="text" class="form-control"
                                        th:errorclass="is-invalid" th:field="${recipe.description}"/>
                                 <div class="invalid-feedback" th:if="${#fields.hasErrors('description')}">

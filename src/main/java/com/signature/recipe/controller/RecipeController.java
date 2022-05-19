@@ -51,12 +51,16 @@ public class RecipeController {
 
   @PostMapping
   public String addOrUpdate(@Valid @ModelAttribute("recipe") final RecipeDTO recipeDTO, BindingResult bindingResult) {
-    if(bindingResult.hasErrors()){
+    if (bindingResult.hasErrors()) {
       bindingResult.getAllErrors().forEach(objectError -> {
         log.debug(objectError.toString());
       });
-      recipeDTO.setIngredients(recipeService.getById(recipeDTO.getId()).getIngredients()
-              .stream().map(Ingredient::getDTO).collect(Collectors.toSet()));
+
+      final Recipe recipe = recipeService.getById(recipeDTO.getId());
+      if (recipe != null) {
+        recipeDTO.setIngredients(recipe.getIngredients().stream()
+                .map(Ingredient::getDTO).collect(Collectors.toSet()));
+      }
       return RECIPE_FORM_URL;
     }
 
