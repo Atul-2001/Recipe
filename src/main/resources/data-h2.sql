@@ -1,0 +1,20 @@
+INSERT INTO category (description) VALUES ('North Indian');
+INSERT INTO category (description) VALUES ('South Indian');
+INSERT INTO category (description) VALUES ('East Indian');
+INSERT INTO category (description) VALUES ('West Indian');
+INSERT INTO category (description) VALUES ('American Dish');
+INSERT INTO category (description) VALUES ('Mexican Dish');
+
+INSERT INTO unit_of_measure (description) VALUES ('');
+INSERT INTO unit_of_measure (description) VALUES ('Small');
+INSERT INTO unit_of_measure (description) VALUES ('Medium');
+INSERT INTO unit_of_measure (description) VALUES ('Large');
+INSERT INTO unit_of_measure (description) VALUES ('Ripe');
+INSERT INTO unit_of_measure (description) VALUES ('Pint');
+INSERT INTO unit_of_measure (description) VALUES ('Cup');
+INSERT INTO unit_of_measure (description) VALUES ('Cups');
+INSERT INTO unit_of_measure (description) VALUES ('Clove');
+INSERT INTO unit_of_measure (description) VALUES ('Teaspoon');
+INSERT INTO unit_of_measure (description) VALUES ('Tablespoon');
+INSERT INTO unit_of_measure (description) VALUES ('Pinch');
+INSERT INTO unit_of_measure (description) VALUES ('Ounce');

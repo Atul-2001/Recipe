@@ -12,6 +12,7 @@ import com.signature.recipe.repository.UnitOfMeasureRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +24,7 @@ import java.util.Optional;
 
 @Log4j2
 @Component
+@Profile("default")
 @AllArgsConstructor
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
