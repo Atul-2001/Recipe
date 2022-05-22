@@ -12,11 +12,11 @@
     </parent>
 
     <groupId>com.signature</groupId>
-    <artifactId>recipe</artifactId>
+    <artifactId>spring-mysql-recipe-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <name>Recipe</name>
-    <description>Recipe</description>
+    <description>Spring Recipe Application using MySql</description>
 
     <properties>
         <!-- Generic properties -->
